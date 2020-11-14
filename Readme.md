@@ -1,4 +1,8 @@
-## this is just a sample project .
+# golang based personal blog creator
 
-hello world! I feel alive!
-# this line added using web interface
+todo:
+[] build net/http based blog server
+[] build an API for it
+[] use templates
+[] develop authentication
+[] add more goals
