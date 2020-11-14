@@ -4,6 +4,8 @@ todo:
 
 [ ] build net/http based blog server
 
+[ ] add database to blog application
+
 [ ] build an API for it
 
 [ ] use templates
