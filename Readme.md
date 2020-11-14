@@ -1,12 +1,13 @@
 # golang based personal blog creator
 
 todo:
-[] build net/http based blog server
 
-[] build an API for it
+[ ] build net/http based blog server
 
-[] use templates
+[ ] build an API for it
 
-[] develop authentication
+[ ] use templates
 
-[] add more goals
+[ ] develop authentication
+
+[ ] add more goals
