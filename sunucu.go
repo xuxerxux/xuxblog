@@ -1,6 +1,9 @@
 package xuxblog
 
-func Hello() string {
-	return "merhaba dunya"
+func Hello(name string) string {
+	if name == "" {
+		name = "world"
+	}
+	return "hello " + name
 }
 
