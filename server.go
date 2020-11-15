@@ -1,4 +1,4 @@
-package xuxblog
+package main 
 
 func Hello(name string) string {
 	if name == "" {
@@ -7,3 +7,7 @@ func Hello(name string) string {
 	return "hello " + name
 }
 
+func main() {
+	println(Hello("WWWWWWWWWWWWWW"))
+	return
+}
