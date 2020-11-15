@@ -1,3 +1,14 @@
+FUNDAMENTALS:
+ blogging system for personal usage in local environment
+ it is of course possible to expose to web as well..
+ this blog also has ability to organize content to make it more cohorent !?
+  -- but how? 
+	-- what is it mean to be cohorent?
+	** there may some options to make it clear? --> date based, tag based, 
+					---*-* -* -*  tag AND date based or time of day based classification!
+															longevity based regression analysis identify posts.
+ this blog also hope to be able to make it possible to make auto summarize the entries
+		creating tl;dr part for blog posts.
 Goals:
 -----------------------------
 # skills:
