@@ -21,19 +21,19 @@ func loadPage(title string) *Post{
 	filename := title + ".txt"
 	body, err := ioutil.ReadFile(filename)
 	if err != nil {
-		return &Post{Title:"Hata", Body:[]byte("Böyle bir sayfa yok!")}
+		return &Post{Title:"Hata", Body:[]byte("there is not such a file!")}
 	}
 	return &Post{Title: title, Body: body}
 }
 
 func main(){
 	http.HandleFunc("/", handler)
-	log.Fatal(http.ListenAndServeTLS(":8000","cert.pem","key.pem",nil))
+	log.Fatal(http.ListenAndServe(":8000",nil))
 }
 
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	baslik := r.URL.Path[len("/view/"):]
-	govde := loadPage(baslik)
-	fmt.Fprintf(w, "<h1>%s</h1><p>%s</p>",baslik, govde.Body)
+	title := r.URL.Path[len("/view/"):]
+	body := loadPage(title)
+	fmt.Fprintf(w, "<h1>%s</h1><p>%s</p>",title, body.Body)
 	}
