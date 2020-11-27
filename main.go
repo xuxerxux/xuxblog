@@ -21,7 +21,7 @@ func loadPage(title string) *Post{
 	filename := title + ".txt"
 	body, err := ioutil.ReadFile(filename)
 	if err != nil {
-		return &Post{Title:"Hata", Body:[]byte("there is not such a file!")}
+		return &Post{Title:"Error", Body:[]byte("there is not such a file!")}
 	}
 	return &Post{Title: title, Body: body}
 }
