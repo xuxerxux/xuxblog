@@ -9,6 +9,7 @@ import(
 	"errors"
 	"time"
 	"encoding/hex"
+	"regexp"
 	)
 
 type Post struct {
@@ -31,23 +32,34 @@ func loadPage(title string) (*Post, error){
 }
 
 var templates = template.Must(template.ParseFiles("edit.html", "view.html"))
+var validPath = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$")
+
 func main(){
-	http.HandleFunc("/view/", viewHandler)
-	http.HandleFunc("/edit/", editHandler)
-	http.HandleFunc("/save/", saveHandler)
+	http.HandleFunc("/view/", makeHandler(viewHandler))
+	http.HandleFunc("/edit/", makeHandler(editHandler))
+	http.HandleFunc("/save/", makeHandler(saveHandler))
 	log.Fatal(http.ListenAndServe(":8000",nil))
 }
 
-func saveHandler(w http.ResponseWriter, r *http.Request) {
-	title := r.URL.Path[len("/save/"):]
+func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        m := validPath.FindStringSubmatch(r.URL.Path)
+        if m == nil {
+            http.NotFound(w, r)
+            return
+        }
+        fn(w, r, m[2])
+    }
+}
+
+func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
 	body := r.FormValue("body")
 	p := &Post{Title:title, Body:[]byte(body)}
 	p.save()
 	http.Redirect(w,r,"/view/"+title, http.StatusFound)
 }
 
-func editHandler(w http.ResponseWriter, r *http.Request) {
-	title := r.URL.Path[len("/edit/"):]
+func editHandler(w http.ResponseWriter, r *http.Request, title string) {
 	if title == "" {
 		src := []byte(time.Now().Weekday().String())
 		temp := make([]byte, hex.EncodedLen(len(src)))
@@ -64,8 +76,7 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func viewHandler(w http.ResponseWriter, r *http.Request) {
-	title := r.URL.Path[len("/view/"):]
+func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
 	body , err:= loadPage(title)
 	if err != nil {
 		http.Redirect(w,r,"/edit/"+title, http.StatusFound) // this is the way to redirect!
