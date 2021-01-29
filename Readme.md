@@ -4,7 +4,7 @@ Roadmap:
 
 1. create a simple system just to respong http requests [done]
 2. create routing system to reply different requests [done]
-3. create dynamic routing [not done]
+3. create dynamic routing [done]
 4. create dynamic content -- text based [done]
 5. create database to keep content [not done]
 6. create auth system [not done]
